@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <main class="home">
+        <h1 class="titleHome">TheHive Stats Stream Overlay</h1>
+        <div class="game">
+            <h2>Treasure Wars</h2>
+            <input type="text" name="nicknameWARS" id="nicknameWARS" placeholder="NickName">
+            <button onclick="fWars('{{ url('wars') }}')">Search</button>
+            <div class="top">
+                <h3>Top 1: {{ topWars1 }}</h3>
+                <h3>Top 2: {{ topWars2 }}</h3>
+                <h3>Top 3: {{ topWars3 }}</h3>
+            </div>
+        </div>
+        <div class="game">
+            <h2>SkyWars</h2>
+            <input type="text" name="nicknameSKY" id="nicknameSKY" placeholder="NickName">
+            <button onclick="fSky('{{ url('sky') }}')">Search</button>
+            <div class="top">
+                <h3>Top 1: {{ topSky1 }}</h3>
+                <h3>Top 2: {{ topSky2 }}</h3>
+                <h3>Top 3: {{ topSky3 }}</h3>
+            </div>
+        </div>
+        <div class="game">
+            <h2>Capture The Flag</h2>
+            <input type="text" name="nicknameCTF" id="nicknameCTF" placeholder="NickName">
+{#            <button onclick="fCtf('{{ url('ctf') }}')">Search</button>#}
+            <div class="top">
+                <h3>Top 1: {{ topCtf1 }}</h3>
+                <h3>Top 2: {{ topCtf2 }}</h3>
+                <h3>Top 3: {{ topCtf3 }}</h3>
+            </div>
+        </div>
+        <div class="game">
+            <h2>Survival Game</h2>
+            <input type="text" name="nicknameSG" id="nicknameSG" placeholder="NickName">
+{#            <button onclick="fSg('{{ url('sg') }}')">Search</button>#}
+            <div class="top">
+                <h3>Top 1: {{ topSg1 }}</h3>
+                <h3>Top 2: {{ topSg2 }}</h3>
+                <h3>Top 3: {{ topSg3 }}</h3>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        function fWars(input) {
+            let name = document.getElementById('nicknameWARS').value;
+            let url = input + "/" + name;
+            location.replace(url);
+        }
+
+        function fSky(input) {
+            let name = document.getElementById('nicknameSKY').value;
+            let url = input + "/" + name;
+            location.replace(url);
+        }
+
+        function fCtf(input) {
+            let name = document.getElementById('nicknameCTF').value;
+            let url = input + "/" + name;
+            location.replace(url);
+        }
+
+        function fSg(input) {
+            let name = document.getElementById('nicknameSG').value;
+            let url = input + "/" + name;
+            location.replace(url);
+        }
+    </script>
+
+{% endblock %}
