@@ -3,8 +3,7 @@
 
 {% block body %}
     <main class="home">
-        <h1 class="titleHome">TheHive Stats Stream Overlay</h1>
-        <div class="game">
+        <div class="game" style="--bg-color:#ffcc00">
             <h2>Treasure Wars</h2>
             <input type="text" name="nicknameWARS" id="nicknameWARS" placeholder="NickName">
             <button onclick="fWars('{{ url('wars') }}')">Search</button>
@@ -14,7 +13,7 @@
                 <h3>Top 3: {{ topWars3 }}</h3>
             </div>
         </div>
-        <div class="game">
+        <div class="game" style="--bg-color:#73d8ff">
             <h2>SkyWars</h2>
             <input type="text" name="nicknameSKY" id="nicknameSKY" placeholder="NickName">
             <button onclick="fSky('{{ url('sky') }}')">Search</button>
@@ -24,24 +23,34 @@
                 <h3>Top 3: {{ topSky3 }}</h3>
             </div>
         </div>
-        <div class="game">
+        <div class="game" style="--bg-color:red">
             <h2>Capture The Flag</h2>
             <input type="text" name="nicknameCTF" id="nicknameCTF" placeholder="NickName">
-{#            <button onclick="fCtf('{{ url('ctf') }}')">Search</button>#}
+            <button onclick="fCtf('{{ url('ctf') }}')">Search</button>
             <div class="top">
                 <h3>Top 1: {{ topCtf1 }}</h3>
                 <h3>Top 2: {{ topCtf2 }}</h3>
                 <h3>Top 3: {{ topCtf3 }}</h3>
             </div>
         </div>
-        <div class="game">
+        <div class="game" style="--bg-color:#00d084">
             <h2>Survival Game</h2>
             <input type="text" name="nicknameSG" id="nicknameSG" placeholder="NickName">
-{#            <button onclick="fSg('{{ url('sg') }}')">Search</button>#}
+            <button onclick="fSg('{{ url('sg') }}')">Search</button>
             <div class="top">
                 <h3>Top 1: {{ topSg1 }}</h3>
                 <h3>Top 2: {{ topSg2 }}</h3>
                 <h3>Top 3: {{ topSg3 }}</h3>
+            </div>
+        </div>
+        <div class="game" style="--bg-color:#fda1ff">
+            <h2>DeathRun</h2>
+            <input type="text" name="nicknameDR" id="nicknameDR" placeholder="NickName">
+            <button onclick="fDr('{{ url('dr') }}')">Search</button>
+            <div class="top">
+                <h3>Top 1: {{ topDr1 }}</h3>
+                <h3>Top 2: {{ topDr2 }}</h3>
+                <h3>Top 3: {{ topDr3 }}</h3>
             </div>
         </div>
     </main>
@@ -69,6 +78,12 @@
 
         function fSg(input) {
             let name = document.getElementById('nicknameSG').value;
+            let url = input + "/" + name;
+            location.replace(url);
+        }
+
+        function fDr(input) {
+            let name = document.getElementById('nicknameDR').value;
             let url = input + "/" + name;
             location.replace(url);
         }

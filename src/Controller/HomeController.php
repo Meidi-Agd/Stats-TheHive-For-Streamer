@@ -100,6 +100,29 @@ class HomeController extends AbstractController
             }
         }
 
+        //DeathRun stats top
+        $urlCtf = "https://api.playhive.com/v0/game/monthly/dr";
+        if($this->callAPI($urlCtf) == true)
+        {
+            $file = file_get_contents($urlCtf);
+            $json = json_decode($file);
+
+            foreach ($json as $item)
+            {
+
+                if ($item->{'index'} == 0){
+                    $tdr1 = $item->{'username'};
+                }
+                if ($item->{'index'} == 1){
+                    $tdr2 = $item->{'username'};
+                }
+                if ($item->{'index'} == 2){
+                    $tdr3 = $item->{'username'};
+                    break;
+                }
+            }
+        }
+
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
@@ -115,6 +138,9 @@ class HomeController extends AbstractController
             'topSg1' => $tsg1,
             'topSg2' => $tsg2,
             'topSg3' => $tsg3,
+            'topDr1' => $tdr1,
+            'topDr2' => $tdr2,
+            'topDr3' => $tdr3,
         ]);
     }
 

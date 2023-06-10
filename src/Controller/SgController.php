@@ -2,24 +2,21 @@
 
 namespace App\Controller;
 
-use functions;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TWController extends AbstractController
+class SgController extends AbstractController
 {
-    #[Route('/wars/{name}', name: 'wars_name')]
-    public function wars_name(string $name): Response
+    #[Route('/sg/{name}', name: 'sg_name')]
+    public function sky_name(string $name): Response
     {
-        $prestige = 0; $gamePlay = 0; $gameWin = 0; $winRate = 0; $kills = 0; $death = 0; $KD = 0;
-        $url = "https://api.playhive.com/v0/game/all/wars/" . $name;
+        $gamePlay = 0; $gameWin = 0; $winRate = 0; $kills = 0; $death = 0; $KD = 0;
+        $url = "https://api.playhive.com/v0/game/all/sg/" . $name;
         if($this->callAPI($url) == true)
         {
             $file = file_get_contents($url);
             $json = json_decode($file);
-            $prestige = $json->{'prestige'};
             if(!empty($json->{'played'}))
             {
                 $gamePlay = $json->{'played'};
@@ -37,7 +34,6 @@ class TWController extends AbstractController
         }
         else
         {
-            $prestige = "none";
             $gamePlay = "none";
             $gameWin = "none";
             $winRate = "none";
@@ -54,9 +50,8 @@ class TWController extends AbstractController
 
 
 
-        return $this->render('tw/index.html.twig', [
-            'controller_name' => 'TWController',
-            'prestige' => $prestige,
+        return $this->render('sg/index.html.twig', [
+            'controller_name' => 'SGController',
             'gamePlay' => $gamePlay,
             'gameWin' => $gameWin,
             'winRate' => $winRate,
@@ -68,15 +63,13 @@ class TWController extends AbstractController
         ]);
     }
 
-    #[Route('/wars', name: 'wars')]
+    #[Route('/sg', name: 'sg')]
     public function index(): Response
     {
-//            return $this->render('home/index.html.twig', [
-//                'Title' => 'Treasure Wars',
-//            ]);
-
-            return $this->redirect('/home');
-
+//        return $this->render('sky/index.html.twig', [
+//            'controller_name' => 'SkyController',
+//        ]);
+        return $this->redirect('/home');
     }
 
     function callAPI($url)

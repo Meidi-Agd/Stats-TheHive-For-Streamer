@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stats DeathRun{% endblock %}
+
+{% block body %}
+    <main class="stream">
+        <div>
+            <h1>My stats on DeathRun : </h1>
+            <h2>Game Played :  {{ gamePlay }}</h2>
+            <h2>Game Win : {{ gameWin }}</h2>
+            <h2>Win Percentage : {{ winRate }}%</h2>
+            <h2>Checkpoint : {{ checkpoint }}</h2>
+            <h2>Kills : {{ kills }}</h2>
+            <h2>Death : {{ deaths }}</h2>
+            <h2>K/D : {{ kd }}</h2>
+            <h2>Nickname : {{ nickname }}</h2>
+
+            <h2 class="author">By aNoob</h2>
+        </div>
+        {% if error %}
+            <a class="btnReturn" href="{{ url('home') }}">User non trouver revenir a la page home</a>
+        {% endif %}
+
+    </main>
+{% endblock %}

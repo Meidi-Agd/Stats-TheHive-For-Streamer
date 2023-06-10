@@ -2,24 +2,22 @@
 
 namespace App\Controller;
 
-use functions;
-use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TWController extends AbstractController
+class CtfController extends AbstractController
 {
-    #[Route('/wars/{name}', name: 'wars_name')]
-    public function wars_name(string $name): Response
+    #[Route('/ctf/{name}', name: 'ctf_name')]
+    public function sky_name(string $name): Response
     {
-        $prestige = 0; $gamePlay = 0; $gameWin = 0; $winRate = 0; $kills = 0; $death = 0; $KD = 0;
-        $url = "https://api.playhive.com/v0/game/all/wars/" . $name;
+        $gamePlay = 0; $gameWin = 0; $winRate = 0; $kills = 0; $assists = 0; $death = 0; $KD = 0;$KDA = 0;
+        $url = "https://api.playhive.com/v0/game/all/ctf/" . $name;
+
         if($this->callAPI($url) == true)
         {
             $file = file_get_contents($url);
             $json = json_decode($file);
-            $prestige = $json->{'prestige'};
             if(!empty($json->{'played'}))
             {
                 $gamePlay = $json->{'played'};
@@ -32,16 +30,21 @@ class TWController extends AbstractController
                     $kills = $json->{'kills'};
                     $KD = number_format($kills / $death, 2);
                 }
+                if(!empty($json->{'assists'}))
+                {
+                    $assists = $json->{'assists'};
+                    $KDA = number_format(($kills + $assists) / $death, 2);
+                }
             }
             $error = false;
         }
         else
         {
-            $prestige = "none";
             $gamePlay = "none";
             $gameWin = "none";
             $winRate = "none";
             $kills = "none";
+            $assists = "none";
             $death = "none";
             $KD = "none";
             $name = "not Found";
@@ -54,29 +57,28 @@ class TWController extends AbstractController
 
 
 
-        return $this->render('tw/index.html.twig', [
-            'controller_name' => 'TWController',
-            'prestige' => $prestige,
+        return $this->render('ctf/index.html.twig', [
+            'controller_name' => 'SKYController',
             'gamePlay' => $gamePlay,
             'gameWin' => $gameWin,
             'winRate' => $winRate,
             'kills' => $kills,
+            'assists' => $assists,
             'deaths' => $death,
             'kd' => $KD,
+            'kda' => $KDA,
             'nickname' => $name,
             'error' => $error,
         ]);
     }
 
-    #[Route('/wars', name: 'wars')]
+    #[Route('/ctf', name: 'ctf')]
     public function index(): Response
     {
-//            return $this->render('home/index.html.twig', [
-//                'Title' => 'Treasure Wars',
-//            ]);
-
-            return $this->redirect('/home');
-
+//        return $this->render('sky/index.html.twig', [
+//            'controller_name' => 'SkyController',
+//        ]);
+        return $this->redirect('/home');
     }
 
     function callAPI($url)
